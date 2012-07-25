@@ -1,0 +1,35 @@
+package eu.trentorise.smartcampus.services.ou.data.message;
+
+import "core.proto";
+
+message LocationRefList {
+	repeated LocationRef location = 1;
+}
+message Location {
+	required string id = 1;
+	required string name = 2;
+	required string localId = 3;
+    optional string address = 4;
+    required string detailUrl = 5;
+	required string description = 6;
+    required double lat = 7;
+    required double lng = 8;
+	optional string label = 9;
+	optional string imgUrl = 10;
+	optional it.sayservice.platform.core.message.POI poi =11;
+}
+
+message LocationRef {
+    required string name = 1;
+    required string localId = 2;
+    required string detailUrl = 3;
+    required double lat = 4;
+    required double lng = 5;
+    optional string address = 6;
+    optional string label = 7;
+}
+
+message DescriptionRef {
+    required string description = 1;
+    optional string imgUrl = 2;
+}

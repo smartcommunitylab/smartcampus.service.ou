@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataflow xmlns="http://www.example.org/mml-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/mml-schema mml-schema.xsd ">
+
+	<output />
+
+	<variable name="html" type="org.w3c.dom.Document" />
+	<variable name="locationsProto" type="eu.trentorise.smartcampus.services.ou.data.message.Ou.LocationRefList" />
+    <variable name="locationDescProto" type="eu.trentorise.smartcampus.services.ou.data.message.Ou.DescriptionRef" />
+    <variable name="locationProto" type="eu.trentorise.smartcampus.services.ou.data.message.Ou.Location" />
+			
+	<httpConnector name="locationsConnector" />
+	<httpConnector name="locationConnector"/>
+	
+	<connect name="c1" connector="locationsConnector" outputVar="html">
+		<properties>
+			<property name="url">
+				<value>"http://www.operauni.tn.it/cms-01.00/articolo.asp?IDcms=8581&amp;s=39&amp;l=IT"</value>
+			</property>
+		</properties>
+	</connect>
+	
+    <xss key="service/ou/locations.xml" outputVar="locationsProto">
+        <in>html</in>
+    </xss>  
+
+    <foreach item="location" itemClass="eu.trentorise.smartcampus.services.ou.data.message.Ou.LocationRef" aggregateVariable="locationsList" outputVar="output" writeAction="append" writeMethod="addAll">
+        <items>locationsProto.getLocationList()</items>        
+
+        <connect connector="locationConnector" outputVar="html">
+            <properties>
+                <property name="url">
+                    <value>"http://www.operauni.tn.it"+location.getDetailUrl()</value>
+                </property>
+            </properties>
+        </connect>
+
+        <xss key="service/ou/detail.xml"  outputVar="locationDescProto">
+            <in>html</in>
+        </xss>  
+        
+        <script outputVar="locationProto">
+            <className>eu.trentorise.smartcampus.services.ou.impl.LocationScript</className>
+            <method>createLocation</method>
+            <variables>
+                <value>location</value>
+                <value>locationDescProto</value>                               
+            </variables>
+        </script>
+        
+        <geolocalize outputVar="locationProto" inputVar="locationProto" attribute="poi" onError="continue">
+            <poiName>locationProto.getLocalId()</poiName>
+        </geolocalize>
+        
+        <merge outputVar="locationsList" writeAction="append" writeMethod="add" initOutput="false">
+            <in>locationProto</in>
+        </merge>
+        
+    </foreach>
+
+</dataflow>

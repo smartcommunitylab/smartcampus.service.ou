@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xss:definition main="locations" name="locations"
+	namespace="http://tempuri.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xss="http://www.sayservice.it/xss" xmlns="http://www.sayservice.it/html">
+
+	<xss:template name="locations">
+		<html xss:anyAttrs="true">
+			<head xss:anyContent="true" />
+			<body xss:anyAttrs="true">
+				<xss:path path="//div[@class='el_mappa']">
+					<xss:use-template name="linksDiv" />
+				</xss:path>
+			</body>
+		</html>
+	</xss:template>
+
+	<xss:template name="linksDiv">
+	  <div class="el_mappa" style="(.)*">
+	    <div xss:anyAttrs="true" xss:anyContent="true"/>
+	    <div class="clear" xss:anyContent="true"/>
+
+        <xss:repeat>
+          <xss:sequence label="location">
+	          <script type="text/javascript"> 
+	            <xss:structured-text>
+	             <xss:text pattern="addMarker\("/>
+	             <xss:text pattern="([\.\d])*" label="lat"/>
+	             <xss:text pattern=","/>
+	             <xss:text pattern="([\.\d])*" label="lng"/>
+	             <xss:text pattern=","/>             
+	             <xss:text pattern="(\d)*" label="localId"/>
+	             <xss:text pattern=","/>             
+	             <xss:text pattern="'([^'])*'" label="label"/>
+	             <xss:text pattern=","/>             
+	             <xss:text pattern="'([^'])*'" label="name"/>
+	             <xss:text pattern=","/>
+	             <xss:text pattern="'([^'])*'" label="address"/>
+	            <xss:text pattern="\);"/> 
+	            </xss:structured-text>
+	          </script>
+	          <div id="(.)*" class="display" xss:anyContent="true"/>
+	          <div id="(.)*" class="mapGoggleSogg">
+	            <div class="bullet Trento" xss:anyContent="true"/>
+	            <div class="left">
+	                <a href="(.)*" xss:label="detailUrl" xss:labelValue="@href" title="(.)*"><xss:anyText label="name"/></a>
+	            </div>
+	          </div>
+	       </xss:sequence>     
+        </xss:repeat>
+      </div>
+    </xss:template>   
+
+</xss:definition>

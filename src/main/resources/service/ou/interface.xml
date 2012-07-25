@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-definition xmlns="http://www.example.org/interface-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/interface-schema ../interface-schema.xsd ">
+	<interface serviceURI="eu.trentorise.smartcampus.services.ou.OperaUniService">
+		<operation name="GetLocations">
+			<output
+				type="eu.trentorise.smartcampus.services.ou.data.message.Ou$Location"
+				repeated="true" />
+		</operation>
+	</interface>
+
+	<implementation package="eu.trentorise.smartcampus.services.ou">
+		<operationImpl name="GetLocations" />
+	</implementation>
+
+</service-definition>

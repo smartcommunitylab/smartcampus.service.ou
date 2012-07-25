@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xss:definition main="detail" name="detail"
+    namespace="http://tempuri.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xss="http://www.sayservice.it/xss" xmlns="http://www.sayservice.it/html">
+
+    <xss:template name="detail">
+        <html xss:anyAttrs="true">
+            <head xss:anyContent="true" />
+            <body xss:anyAttrs="true">
+                <xss:path path="//div[@class='contentBox']">
+                    <xss:use-template name="detailDiv" />
+                </xss:path>
+            </body>
+        </html>
+    </xss:template>
+
+    <xss:template name="detailDiv">
+        <div class="contentBox">
+            <h1 class="titlePage"><xss:anyText/></h1>
+            <xss:optional>
+	           <div class="right" xss:anyContent="true"/><br/>
+	           <div class="clear"/><br />
+            </xss:optional>
+            
+            <xss:optional>
+                <div class="imgGen">
+                    <img  src="(.)*" xss:label="imgUrl" xss:labelValue="@src" alt="URLImg" title="URLImg" />
+                </div>
+            </xss:optional>
+            <xss:optional>
+                <br />
+            </xss:optional>
+
+            <xss:repeat>
+                <xss:finally>
+                    <xss:concat label="description" />
+                </xss:finally>
+                <xss:choice>
+                    <xss:anyText label="description"/>
+                    <p xss:anyContent="true" xss:label="description" xss:labelValue="concat(text(),'\n')"/>
+                    <span class="text_grigio" xss:label="description" xss:labelValue="concat(text(),'\n')"> 
+                        <xss:anyText/>
+                        <xss:optional>
+                            <a xss:anyAttrs="true">
+                                <xss:optional>
+                                    <xss:anyText/>
+                                </xss:optional>    
+		                        <xss:optional>
+		                            <br/>
+		                        </xss:optional>
+                            </a>
+                        </xss:optional>
+                        <xss:optional>
+                            <br/>
+                        </xss:optional>
+                    </span>
+                    <br/>
+                </xss:choice>
+            </xss:repeat>
+            <xss:repeat>
+                <xss:choice>
+                    <div class="line"/>
+                    <div class="clear"/>
+                    <div id="SB_tab" xss:anyContent="true"/>
+                    <div class="SB_tabcontent" xss:anyAttrs="true" xss:anyContent="true"/>
+                    <br/>
+                </xss:choice>
+            </xss:repeat>
+        </div>  
+    </xss:template>
+
+</xss:definition>
