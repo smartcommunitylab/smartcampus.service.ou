@@ -7,6 +7,11 @@ import eu.trentorise.smartcampus.services.ou.data.message.Ou.LocationRef;
 public class LocationScript {
 
 	public Location createLocation(LocationRef ref, DescriptionRef desc) {
+		String description = desc.getDescription();
+		if (description != null) {
+			description = description.replace("\\\\n", "\n").trim();
+			description = description.replace("\\n", "\n").trim();
+		}
 		return Location.newBuilder()
 		.setAddress(ref.getAddress())
 		.setDetailUrl(ref.getDetailUrl())
@@ -17,7 +22,7 @@ public class LocationScript {
 		.setName(ref.getName())
 		.setLat(ref.getLat())
 		.setLng(ref.getLng())
-		.setDescription(desc.getDescription())
+		.setDescription(description)
 		.build();
 	}
 }

@@ -30,11 +30,11 @@
 	             <xss:text pattern=","/>             
 	             <xss:text pattern="(\d)*" label="localId"/>
 	             <xss:text pattern=","/>             
-	             <xss:text pattern="'([^'])*'" label="label"/>
+	             <xss:text pattern="'([^'])*'" label="label" labelValue="substring(.,2,string-length(.)-2)"/>
 	             <xss:text pattern=","/>             
-	             <xss:text pattern="'([^'])*'" label="name"/>
+	             <xss:text pattern="'([^'])*'" label="name" labelValue="substring(.,2,string-length(.)-2)"/>
 	             <xss:text pattern=","/>
-	             <xss:text pattern="'([^'])*'" label="address"/>
+	             <xss:text pattern="'([^'])*'" label="address" labelValue="substring(.,2,string-length(.)-2)"/>
 	            <xss:text pattern="\);"/> 
 	            </xss:structured-text>
 	          </script>

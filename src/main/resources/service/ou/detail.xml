@@ -36,7 +36,7 @@
                     <xss:concat label="description" />
                 </xss:finally>
                 <xss:choice>
-                    <xss:anyText label="description"/>
+                    <xss:anyText label="description" labelValue="concat(text(),'\n')"/>
                     <p xss:anyContent="true" xss:label="description" xss:labelValue="concat(text(),'\n')"/>
                     <span class="text_grigio" xss:label="description" xss:labelValue="concat(text(),'\n')"> 
                         <xss:anyText/>
